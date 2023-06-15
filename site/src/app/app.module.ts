@@ -10,6 +10,7 @@ import { WelcomeComponent } from './home/welcome.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './pageNotFound/pageNotFound.component';
 import { UserModule } from './user/user.module';
+import { ProductListComponent } from './products/productList/productList.component';
 
 @NgModule({
   declarations: [	
@@ -29,7 +30,7 @@ import { UserModule } from './user/user.module';
     RouterModule.forRoot([
       {path: 'welcome', component: WelcomeComponent},
       {path: '', redirectTo: 'welcome', pathMatch: 'full'},
-      {path: 'products', component: ProductsComponent},
+      {path: 'products', component: ProductListComponent},
 
       {path: '**', component: PageNotFoundComponent}
     ])
