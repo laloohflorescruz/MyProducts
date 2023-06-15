@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ProductsComponent } from './products/products.component';
-import { SharedComponent } from './shared/shared.component';
 import { UserComponent } from './user/user.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './pageNotFound/pageNotFound.component';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [	
@@ -17,18 +17,20 @@ import { PageNotFoundComponent } from './pageNotFound/pageNotFound.component';
     WelcomeComponent,
     MessagesComponent,
     ProductsComponent,
-    SharedComponent,
     UserComponent,
     PageNotFoundComponent
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    UserModule,    
     //HttpClientModule,
     //InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
     RouterModule.forRoot([
       {path: 'welcome', component: WelcomeComponent},
       {path: '', redirectTo: 'welcome', pathMatch: 'full'},
+      {path: 'products', component: ProductsComponent},
+
       {path: '**', component: PageNotFoundComponent}
     ])
   ],
