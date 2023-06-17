@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
  
 @NgModule({
   imports: [
+    SharedModule,
      RouterModule.forChild([
       {path: 'login', component: LoginComponent}
     ])

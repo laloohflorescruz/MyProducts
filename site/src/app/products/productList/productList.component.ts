@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../Product';
+import { ProductService } from 'src/app/services/productService.service';
+import { Product } from "../products-interface";
 
 @Component({
   selector: 'app-productList',
@@ -7,7 +8,6 @@ import { Product } from '../Product';
   styleUrls: ['./productList.component.css']
 })
 export class ProductListComponent implements OnInit {
-  
   pageTitle = 'Product List';
   imageWidth = 50;
   imageMargin = 2;
@@ -23,19 +23,30 @@ export class ProductListComponent implements OnInit {
     this._listFilter = value;
     this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
   }
-
+ 
   filteredProducts: Product[] = [];
   products: Product[] = [];
 
-  
-  constructor() { }
 
-  ngOnInit() {
+  constructor(private productService: ProductService) { }
+
+  ngOnInit(): void {
+    this.productService.getProduct().subscribe({
+      next: products => {
+        this.products = products;
+        this.filteredProducts = this.performFilter(this.listFilter);
+      },
+      error: err => this.errorMessage = err
+    });
   }
 
-  performFilter(listFilter: string): Product[] {
-    throw new Error('Method not implemented.');
+  performFilter(filterBy: string): Product[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.products.filter((product: Product) =>
+      product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
-   
+  toggleImage(): void {
+    this.showImage = !this.showImage;
+  }
 }

@@ -11,31 +11,34 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './pageNotFound/pageNotFound.component';
 import { UserModule } from './user/user.module';
 import { ProductListComponent } from './products/productList/productList.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductModule } from './products/product.module';
+import { MessageModule } from './messages/message.module';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ProductData } from 'src/product-data';
+//import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+//import { ProductData } from './products/product-data';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     WelcomeComponent,
-    MessagesComponent,
-    ProductsComponent,
-    UserComponent,
     PageNotFoundComponent
-   ],
+  ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    UserModule,    
-    //HttpClientModule,
-    //InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
+    HttpClientModule,
+    InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
     RouterModule.forRoot([
-      {path: 'welcome', component: WelcomeComponent},
-      {path: '', redirectTo: 'welcome', pathMatch: 'full'},
-      {path: 'products', component: ProductListComponent},
-
-      {path: '**', component: PageNotFoundComponent}
-    ])
+      { path: 'welcome', component: WelcomeComponent },
+      { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+      { path: 'products', component: ProductListComponent },
+      { path: '**', component: PageNotFoundComponent }
+    ]),
+    ProductModule,
+    UserModule,
+    MessageModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
