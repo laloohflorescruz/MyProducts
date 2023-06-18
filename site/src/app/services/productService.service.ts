@@ -62,7 +62,6 @@ export class ProductService {
   }
 
 
-
   private handleError(err: any) {
     // instead of just logging it to the console
     let errorMessage: string;

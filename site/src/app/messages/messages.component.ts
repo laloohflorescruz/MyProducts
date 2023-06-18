@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { MessageService } from './messageService.service';
 
 @Component({
   selector: 'app-messages',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent {
+  get messages() {
+    return this.msgService.messages;
+  }
+  
+  constructor(private msgService: MessageService,
+    private router: Router) { }
 
+  close(): void {
+    // Close the popup.
+  }
 }
