@@ -12,8 +12,8 @@ export class LoginComponent  {
   pageTitle = 'Log In';
 
   constructor(private authService: AuthServiceService) { }
-
-  /*login(loginForm: NgForm) {
+  
+  login(loginForm: NgForm) {
     if (loginForm && loginForm.valid) {
       const userName = loginForm.form.value.userName;
       const passWord = loginForm.form.value.passWord;
@@ -22,8 +22,5 @@ export class LoginComponent  {
     else {
       this.errorMessage = 'Please enter an username and password.';
     }
-  }*/
-  login() {
-    console.log("hello");
-  }
+  } 
 }
