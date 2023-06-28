@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/services/authService.service';
 
 @Component({
@@ -11,13 +12,16 @@ export class LoginComponent  {
   errorMessage: string | undefined;
   pageTitle = 'Log In';
 
-  constructor(private authService: AuthServiceService) { }
+  constructor(private authService: AuthServiceService,
+    private router: Router) { }
   
   login(loginForm: NgForm) {
     if (loginForm && loginForm.valid) {
       const userName = loginForm.form.value.userName;
       const passWord = loginForm.form.value.passWord;
       this.authService.login(userName, passWord);
+      
+      this.router.navigate(['/products']);
     }
     else {
       this.errorMessage = 'Please enter an username and password.';
