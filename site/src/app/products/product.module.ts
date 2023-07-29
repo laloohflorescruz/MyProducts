@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ProductListComponent } from './productList/productList.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
@@ -10,7 +9,10 @@ import { RouterModule } from '@angular/router';
   imports: [
     SharedModule, 
     RouterModule.forChild([
-      {path: 'products', component: ProductListComponent}
+      { path: 'products', component: ProductListComponent },
+      { path: 'products/:id', component: ProductDetailComponent},
+      { path: 'products/:id/edit', component: ProductEditComponent},
+         
     ])
   ],
   declarations: [

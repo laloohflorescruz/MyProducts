@@ -16,6 +16,7 @@ import { ProductModule } from './products/product.module';
 import { MessageModule } from './messages/message.module';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ProductData } from 'src/product-data';
+import { ProductEditComponent } from './products/product-edit/product-edit.component';
 //import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 //import { ProductData } from './products/product-data';
 
@@ -33,6 +34,9 @@ import { ProductData } from 'src/product-data';
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: 'products', component: ProductListComponent },
+      { path: 'products', component: ProductEditComponent },
+      //{ path: 'products/0/edit', component: ProductEditComponent },
+ 
       { path: '**', component: PageNotFoundComponent }
     ]),
     ProductModule,

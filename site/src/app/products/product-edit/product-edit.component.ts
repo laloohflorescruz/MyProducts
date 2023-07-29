@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/messages/messageService.service';
 import { ProductService } from 'src/app/services/productService.service';
 import { Product } from '../products-interface';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.css']
 })
-export class ProductEditComponent {
+export class ProductEditComponent implements OnInit {
 
   pageTitle = 'Product Edit';
   errorMessage: string | undefined;
@@ -16,7 +17,18 @@ export class ProductEditComponent {
   product: Product | undefined;
 
   constructor(private prodService: ProductService,
-    private msgService: MessageService) { }
+    private msgService: MessageService,
+    private route: ActivatedRoute,
+    private router: Router) { }
+
+    ngOnInit(): void {
+      this.route.paramMap.subscribe(params => {
+        const id = Number(params.get('id'));
+        if (!isNaN(id)) { // Check if id is a valid number
+          this.getProduct(id);
+        }
+      });
+    }
 
   getProduct(id: number): void {
     this.prodService.getProducts(id).subscribe({
@@ -79,5 +91,6 @@ export class ProductEditComponent {
       this.msgService.addMessage(message);
     }
     // Navigate back to the product list
+    this.router.navigate(['/products']);
   }
 }
