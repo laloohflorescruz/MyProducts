@@ -13,7 +13,7 @@
         <div class="col-md-8">
           <input class="form-control" id="productNameId" type="text" placeholder="Name (required)" required
             minlength="3" [(ngModel)]=product.productName name="productName" #productNameVar="ngModel"
-            [ngClass]="{'is-invalid': (productNameVar.touched || productNameVar.dirty) && !productNameVar.valid }" />
+            [ngClass]="{'is-invalid': (productNameVar.touched || productNameVar.dirty ||  product.id !== 0) && !productNameVar.valid }" />
           <span class="invalid-feedback">
             <span *ngIf="productNameVar.errors?.required">
               Product name is required.
@@ -30,7 +30,7 @@
         <div class="col-md-8">
           <input class="form-control" id="productCodeId" type="text" placeholder="Code (required)" required
             [(ngModel)]=product.productCode name="productCode" #productCodeVar="ngModel"
-            [ngClass]="{'is-invalid': (productCodeVar.touched || productCodeVar.dirty) && !productCodeVar.valid }" />
+            [ngClass]="{'is-invalid': (productCodeVar.touched || productCodeVar.dirty ||  product.id !== 0) && !productCodeVar.valid }" />
           <span class="invalid-feedback">
             <span *ngIf="productCodeVar.errors?.required">
               Product code is required.

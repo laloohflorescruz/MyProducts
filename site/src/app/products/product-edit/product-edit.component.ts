@@ -68,24 +68,25 @@ export class ProductEditComponent implements OnInit {
     }
   }
 
+
   saveProduct(): void {
-    if (true) {
+    if (true === true) { 
       if (this.product && this.product.id === 0) {
-        this.prodService.createProduct(this.product).subscribe(
-          () => this.onSaveComplete(`The new ${this.product?.productName} was saved`),
-          (err: string | undefined) => this.errorMessage = err
-        );
-      } else if (this.product && this.product.id !== 0) {
-        this.prodService.updateProduct(this.product).subscribe(
-          () => this.onSaveComplete(`The updated ${this.product?.productName} was saved`),
-          (err: string | undefined) => this.errorMessage = err
-        );
+        this.prodService.createProduct(this.product).subscribe({
+          next: () => this.onSaveComplete(`The new ${this.product?.productName} was saved`),
+          error: err => this.errorMessage = err
+        });
+      } else if (this.product && this.product.id !== 0) { 
+        this.prodService.updateProduct(this.product).subscribe({
+          next: () => this.onSaveComplete(`The updated ${this.product?.productName} was saved`),
+          error: err => this.errorMessage = err
+        });
       }
     } else {
       this.errorMessage = 'Please correct the validation errors.';
     }
   }
-
+  
   onSaveComplete(message?: string): void {
     if (message) {
       this.msgService.addMessage(message);

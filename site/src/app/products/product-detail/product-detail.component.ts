@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../products-interface';
 import { ProductService } from 'src/app/services/productService.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-detail',
@@ -12,7 +13,16 @@ export class ProductDetailComponent {
   product: Product | undefined;
   errorMessage: string | undefined;
 
-  constructor(private prodService: ProductService) { }
+  constructor(private prodService: ProductService, private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = Number(params.get('id'));
+      if (!isNaN(id)) { // Check if id is a valid number
+        this.getProduct(id);
+      }
+    });
+  }
 
   getProduct(id: number) {
     this.prodService.getProducts(id).subscribe({
