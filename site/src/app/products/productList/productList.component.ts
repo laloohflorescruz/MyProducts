@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/productService.service';
 import { Product } from "../products-interface";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-productList',
@@ -28,9 +29,13 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
 
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.listFilter = this.route.snapshot.queryParamMap.get('filterBy') || '';
+    this.showImage = this.route.snapshot.queryParamMap.get('showImage') === 'true';
+    
     this.productService.getProduct().subscribe({
       next: products => {
         this.products = products;

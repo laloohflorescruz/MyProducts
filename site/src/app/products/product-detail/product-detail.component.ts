@@ -13,7 +13,8 @@ export class ProductDetailComponent {
   product: Product | undefined;
   errorMessage: string | undefined;
 
-  constructor(private prodService: ProductService, private route: ActivatedRoute) { }
+  constructor(private prodService: ProductService, 
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
