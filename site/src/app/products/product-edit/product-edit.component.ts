@@ -39,7 +39,6 @@ export class ProductEditComponent implements OnInit {
 
   onProductRetrieved(product: Product): void {
     this.product = product;
-
     if (!this.product) {
       this.pageTitle = 'No product found';
     } else {
