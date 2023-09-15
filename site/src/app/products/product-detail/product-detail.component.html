@@ -9,6 +9,11 @@
 
       <div class="col-md-8">
         <div class="row">
+          <div class="col-md-3">Id:</div>
+          <div class="col-md-6">{{product.id}}</div>
+        </div>
+
+        <div class="row">
           <div class="col-md-3">Name:</div>
           <div class="col-md-6">{{product.productName}}</div>
         </div>
@@ -40,25 +45,27 @@
         </div>
         <div class="row">
           <div class="col-md-3">Tags:</div>
+          <!-- <div class="col-md-6">{{product.tags}}</div> -->
           <div class="col-md-6">{{product.tags}}</div>
+          <!-- <span class="badge rounded-pill bg-info text-dark">Info</span> -->
+
         </div>
       </div>
 
       <div class="col-md-4" *ngIf="product.imageUrl">
-        <img class="center-block img-responsive" [style.height.px]="150" [style.margin.px]="2" [src]="product.imageUrl"
+        <img class="center-block img-responsive rounded float-start" [style.height.px]="150" [style.margin.px]="2" [src]="product.imageUrl"
           [title]="product.productName">
       </div>
     </div>
 
+ 
+
     <div class="row mt-4">
       <div class="col-md-4">
         <button class="btn btn-outline-secondary mr-3" style="width:80px">
-          <i class="fa fa-chevron-left"></i> Back
-        </button>
+          <i class="fa fa-chevron-left"></i> Back</button>&nbsp;
         <button class="btn btn-outline-primary" style="width:80px"
-        [routerLink]="['/products', product.id, 'edit']">
-          Edit
-        </button>
+          [routerLink]="['/products', product.id, 'edit']">Edit</button>
       </div>
     </div>
 
