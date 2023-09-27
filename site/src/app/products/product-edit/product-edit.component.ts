@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'src/app/messages/messageService.service';
+import { MessageService } from 'src/app/pageNotFound/messages/messageService.service';
 import { ProductService } from 'src/app/services/productService.service';
 import { Product } from '../products-interface';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,10 +29,11 @@ export class ProductEditComponent implements OnInit {
         }
       });
     }
+ 
 
   getProduct(id: number): void {
-    this.prodService.getProducts(id).subscribe({
-      next: product => this['onProductRetrieved'](product),
+    this.prodService.getProduct(id).subscribe({
+      next: products => this.onProductRetrieved(products),
       error: err => this.errorMessage = err
     });
   }

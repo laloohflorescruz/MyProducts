@@ -8,7 +8,7 @@ import { PageNotFoundComponent } from './pageNotFound/pageNotFound.component';
 import { UserModule } from './user/user.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductModule } from './products/product.module';
-import { MessageModule } from './messages/message.module';
+import { MessageModule } from './pageNotFound/messages/message.module';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ProductData } from 'src/product-data';
 import { AppRoutingModule } from './app-routing.module';

@@ -11,23 +11,29 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProduct(): Observable<Product[]> {
+  
+  getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.aPiurl)
       .pipe(
         tap(data => console.log(JSON.stringify(data))),
-        catchError(this.handleError));
+        catchError(this.handleError)
+      );
   }
 
-  getProducts(id: number): Observable<Product> {
+  
+  getProduct(id: number): Observable<Product> {
     if (id === 0) {
-      (this.initializeProduct());
+      return of(this.initializeProduct());
     }
     const url = `${this.aPiurl}/${id}`;
-    return this.http.get<Product>(url).pipe(
-      tap(data => console.log('getProduct: ' + JSON.stringify(data))),
-      catchError(this.handleError)
-    );
+    return this.http.get<Product>(url)
+      .pipe(
+        tap(data => console.log('getProduct: ' + JSON.stringify(data))),
+        catchError(this.handleError)
+      );
   }
+
+   
 
   createProduct(product: Product): Observable<Product> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -62,7 +68,8 @@ export class ProductService {
   }
 
 
-  private handleError(err: any) {
+  private handleError(err: { error: { message: any; }; status: any; body: { error: any; }; }) {
+    // in a real world app, we may send the server to some remote logging infrastructure
     // instead of just logging it to the console
     let errorMessage: string;
     if (err.error instanceof ErrorEvent) {
@@ -74,22 +81,21 @@ export class ProductService {
       errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
     }
     console.error(err);
-
     return throwError(errorMessage);
   }
 
-  private initializeProduct() {
+  private initializeProduct() : Product {
     return {
       id: 0,
-      productName: null,
-      productCode: null,
-      category: null,
+      productName: '',
+      productCode: '',
+      category: '',
       tags: [],
-      releaseDate: null,
-      price: null,
-      description: null,
-      starRating: null,
-      imageUrl: null
+      releaseDate: '',
+      price: 0,
+      description: '',
+      starRating: 0,
+      imageUrl: ''
     };
   }
 }

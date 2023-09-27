@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../products-interface';
+import { Product, ProductResolved } from '../products-interface';
 import { ProductService } from 'src/app/services/productService.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent {
+export class ProductDetailComponent implements OnInit {
   pageTitle = 'Product Detail';
   product: Product | undefined;
   errorMessage: string | undefined;
@@ -17,19 +17,10 @@ export class ProductDetailComponent {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const id = Number(params.get('id'));
-      if (!isNaN(id)) { // Check if id is a valid number
-        this.getProduct(id);
-      }
-    });
-  }
-
-  getProduct(id: number) {
-    this.prodService.getProducts(id).subscribe({
-      next: (product: any) => this.onProductRetrieved(product),
-      error: (err: string | undefined) => this.errorMessage = err
-    });
+      const resolvedData : ProductResolved = 
+     this.route.snapshot.data['resolvedData'];
+     this.errorMessage = resolvedData.error;
+     this.onProductRetrieved(resolvedData.product);
   }
 
   onProductRetrieved(product: Product): void {
