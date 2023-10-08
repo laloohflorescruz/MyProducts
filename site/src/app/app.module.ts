@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
-import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './pageNotFound/pageNotFound.component';
 import { UserModule } from './user/user.module';
 import { HttpClientModule } from '@angular/common/http';

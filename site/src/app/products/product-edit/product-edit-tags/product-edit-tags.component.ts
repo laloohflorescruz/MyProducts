@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Product } from '../../products-interface';
 
 @Component({
   selector: 'app-product-edit-tags',
@@ -9,11 +10,27 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductEditTagsComponent implements OnInit {
   errorMessage: string | undefined;
   newTags = '';
-  product = { id: 1, category: 'test', tags: ['test'] };
+  product: Product = {
+    productName: '', productCode: '', category: '', tags: [],
+    id: 0,
+    releaseDate: '',
+    price: 0,
+    description: '',
+    starRating: 0,
+    imageUrl: ''
+  };
 
   constructor(private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.route.parent?.data.subscribe(data => {
+      const resolvedData = data['resolvedData'];
+      if (resolvedData && resolvedData.product) {
+        this.product = { ...resolvedData.product }; // Ensure to create a new object to avoid mutating resolvedData.product directly
+      } else {
+        this.errorMessage = 'Product data not found.';
+      }
+    });
   }
 
   // Add the defined tags
@@ -21,8 +38,8 @@ export class ProductEditTagsComponent implements OnInit {
     if (!this.newTags) {
       this.errorMessage = 'Enter the search keywords separated by commas and then press Add';
     } else {
-      const tagArray = this.newTags.split(',');
-      this.product.tags = this.product.tags ? this.product.tags.concat(tagArray) : tagArray;
+      const tagArray = this.newTags.split(',').map(tag => tag.trim());
+      this.product.tags = this.product.tags?.concat(tagArray);
       this.newTags = '';
       this.errorMessage = '';
     }
@@ -30,6 +47,8 @@ export class ProductEditTagsComponent implements OnInit {
 
   // Remove the tag from the array of tags.
   removeTag(idx: number): void {
-    this.product.tags.splice(idx, 1);
+    if (this.product.tags && this.product.tags.length > idx) {
+      this.product.tags.splice(idx, 1);
+    }
   }
 }
