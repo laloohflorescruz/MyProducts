@@ -12,32 +12,37 @@ import { ProductEditInfoComponent } from './product-edit/product-edit-info/produ
   imports: [
     SharedModule,
     RouterModule.forChild([
-      { path: 'products', component: ProductListComponent },
       {
-        path: 'products/:id',
-        component: ProductDetailComponent,
-        resolve: { resolvedData: ProductResolver }
-      },
-      {
-        path: 'products/:id/edit',
-        component: ProductEditComponent,
-        resolve: { resolvedData: ProductResolver },
+        path: 'products',
         children: [
+          { path: '', component : ProductListComponent},
           {
-            path: '',
-            redirectTo: 'info',
-            pathMatch: 'full'
+            path: ':id',
+            component: ProductDetailComponent,
+            resolve: { resolvedData: ProductResolver }
           },
           {
-            path: 'info',
-            component: ProductEditInfoComponent
-          },
-          {
-            path: 'tags',
-            component: ProductEditTagsComponent
+            path: ':id/edit',
+            component: ProductEditComponent,
+            resolve: { resolvedData: ProductResolver },
+            children: [
+              {
+                path: '',
+                redirectTo: 'info',
+                pathMatch: 'full'
+              },
+              {
+                path: 'info',
+                component: ProductEditInfoComponent
+              },
+              {
+                path: 'tags',
+                component: ProductEditTagsComponent
+              }
+            ]
           }
         ]
-      }
+      },
     ])
   ],
   declarations: [
@@ -46,7 +51,7 @@ import { ProductEditInfoComponent } from './product-edit/product-edit-info/produ
     ProductEditComponent,
     ProductEditInfoComponent,
     ProductEditTagsComponent
-    
+
   ]
 })
 export class ProductModule { }
