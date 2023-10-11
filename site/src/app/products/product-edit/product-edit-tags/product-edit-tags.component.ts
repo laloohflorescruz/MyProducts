@@ -24,12 +24,7 @@ export class ProductEditTagsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.parent?.data.subscribe(data => {
-      const resolvedData = data['resolvedData'];
-      if (resolvedData && resolvedData.product) {
-        this.product = { ...resolvedData.product }; // Ensure to create a new object to avoid mutating resolvedData.product directly
-      } else {
-        this.errorMessage = 'Product data not found.';
-      }
+      this.product = data['resolvedData'].product;
     });
   }
 

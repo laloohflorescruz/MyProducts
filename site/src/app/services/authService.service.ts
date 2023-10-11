@@ -7,6 +7,8 @@ import { MessageService } from '../pageNotFound/messages/messageService.service'
 })
 export class AuthServiceService {
   currentUser: User | undefined;
+  redirectUrl: string | undefined;
+
 
   get isLoggedIn(): boolean {
     return !!this.currentUser;

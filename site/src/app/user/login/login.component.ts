@@ -21,7 +21,11 @@ export class LoginComponent  {
       const passWord = loginForm.form.value.passWord;
       this.authService.login(userName, passWord);
       
-      this.router.navigate(['/products']);
+      if(this.authService.redirectUrl){
+        this.router.navigateByUrl(this.authService.redirectUrl)
+      } else {
+        this.router.navigate(['/products']);
+      }
     }
     else {
       this.errorMessage = 'Please enter an username and password.';
